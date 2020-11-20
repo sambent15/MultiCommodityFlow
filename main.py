@@ -1,4 +1,7 @@
 from __future__ import print_function
+
+import string
+
 from ortools.graph import pywrapgraph
 
 
@@ -21,16 +24,19 @@ def main():
 
         # Find the minimum cost flow between node 0 and node 4.
     if min_cost_flow.Solve() == min_cost_flow.OPTIMAL:
-        print('Le cout minimum est :', min_cost_flow.OptimalCost())
-        print('')
+        print('Le cout optimal est :', min_cost_flow.OptimalCost())
         print('  Arc    Flot / Capacité  Cout')
         for i in range(min_cost_flow.NumArcs()):
-            cost = min_cost_flow.Flow(i) * min_cost_flow.UnitCost(i)
+            debutArc = string.ascii_uppercase[min_cost_flow.Tail(i)]
+            finArc = string.ascii_uppercase[min_cost_flow.Head(i)]
+            flot = min_cost_flow.Flow(i)
+            capacite = min_cost_flow.Capacity(i)
+            cost = flot * min_cost_flow.UnitCost(i)
             print('%1s -> %1s   %3s  / %3s       %3s' % (
-                min_cost_flow.Tail(i),
-                min_cost_flow.Head(i),
-                min_cost_flow.Flow(i),
-                min_cost_flow.Capacity(i),
+                debutArc,
+                finArc,
+                flot,
+                capacite,
                 cost))
     else:
         print('Probleme avec le input.')
