@@ -2,7 +2,6 @@
 import sys
 import copy
 from edge import Edge
-from sets import Set
 from min_cost_flow import MinCostFlow
 
 arglenth = len(sys.argv)
@@ -28,11 +27,9 @@ class greedyMCMC:
         print("edges:")
         for e in self.edges:
             for e1 in e:
-                print
-                str(e1)
+                print(str(e1))
         for r in self.requirements:
-            print
-            r
+            print(r)
 
     def readGraph(self, filename):
         f = open(filename)
@@ -81,7 +78,7 @@ class greedyMCMC:
     # input:[[v_i1,v_i2,b_i]]
     def greedy(self, listofpairs):
         print("len(listofpairs): %s" % (len(listofpairs)))
-        sop = Set()
+        sop = set()
         for p in listofpairs:
             sop.add((p[0], p[1]))
         print("len(setofpairs): %s" % (len(sop)))
@@ -95,8 +92,7 @@ class greedyMCMC:
             for pair in listofpairs:
                 print("%s < %s" % (len(solutions), len(listofpairs)))
                 cur += 1
-                print
-                cur
+                print(cur)
                 # sys.stdout.flush()
                 if (pair[0], pair[1]) in solutions:
                     continue
@@ -122,7 +118,7 @@ class greedyMCMC:
                                         ec[0].avlBW += ec[1]
                                         if ec[0] != link[0]:
                                             e_pair[ec[0]].remove(p)
-                                e_pair[link[0]] = Set()
+                                e_pair[link[0]] = set()
                     else:
                         solutions[(pair[0], pair[1])] = flow
                         for link in flow:
@@ -132,7 +128,7 @@ class greedyMCMC:
                                 s = e_pair[link[0]]
                                 s.add((pair[0], pair[1]))
                             else:
-                                s = Set()
+                                s = set()
                                 s.add((pair[0], pair[1]))
                                 e_pair[link[0]] = s
                 else:
@@ -148,10 +144,9 @@ class greedyMCMC:
                                     ec[0].avlBW += ec[1]
                                     if ec[0] != link[0]:
                                         e_pair[ec[0]].remove(p)
-                            e_pair[link[0]] = Set()
+                            e_pair[link[0]] = set()
         for pair in solutions:
-            print
-            str(pair)
+            print(str(pair))
             sol = solutions[pair]
             self.printFlow(sol)
         if len(solutions) == len(listofpairs):
