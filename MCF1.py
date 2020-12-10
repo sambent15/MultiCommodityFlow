@@ -1,9 +1,9 @@
 from __future__ import print_function
-
 import string
-
 from ortools.graph import pywrapgraph
 
+#Shortest Path dep / arr / cout / filtre
+# 1 source -1 en dest pour offre pour que le solveur trouve le shortest path
 
 def main():
     arc_depart = [0, 0, 1, 1, 1, 2, 2, 3, 4]
@@ -39,7 +39,7 @@ def main():
                 capacite,
                 cost))
     else:
-        print('Probleme avec le input.')
+        print('Probleme')
 
 
 if __name__ == '__main__':
