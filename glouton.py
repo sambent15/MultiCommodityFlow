@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import sys
 import copy
 from edge import Edge
@@ -65,13 +64,13 @@ class greedyMCMC:
         self.alledges.append(newedge)
         for e in edgelist:
             if e.v1 == v1 and e.v2 == v2:
-                print("edge already exists ! please check")
+                print("lien existe deja!!!!!!")
         edgelist.append(newedge)
         self.edges[v1] = edgelist
         edgelist = self.edges[v2]
         for e in edgelist:
             if e.v1 == v1 and e.v2 == v2:
-                print("edge already exists! please check")
+                print("lien existe deja!!!!!!")
         edgelist.append(newedge)
         self.edges[v2] = edgelist
 
@@ -150,16 +149,16 @@ class greedyMCMC:
             sol = solutions[pair]
             self.printFlow(sol)
         if len(solutions) == len(listofpairs):
-            print("success after %s iterations" % (cur))
-            print("number of edges: %s" % (len(self.alledges)))
-            print("number of requests:%s " % (len(listofpairs)))
-            print("number of vertices:%s " % (self.numV))
+            print("reussi apres %s iterations" % (cur))
+            print("nombre de sommets: %s" % (len(self.alledges)))
+            print("nombre de demandes: %s " % (len(listofpairs)))
+            print("nombre de liens: %s " % (self.numV))
             usedbw = self.usedBW(solutions)
             cost = sum([k.cost * usedbw[k] for k in usedbw])
-            print("total cost %s" % (cost))
-            print("maximum capacity %s" % (self.maxCapacity))
+            print("cout total:  %s" % (cost))
+            print("capa max  %s" % (self.maxCapacity))
         else:
-            print("fail after %s iterations" % (cur))
+            print("echec apres %s iterations" % (cur))
 
     def usedBW(self, x):
         usedbw = {}
@@ -173,4 +172,4 @@ class greedyMCMC:
 
     def printFlow(self, flow):
         for link in flow:
-            print("edge: %s [%s]" % (link[0], link[1]))
+            print("lien: %s [%s]" % (link[0], link[1]))
