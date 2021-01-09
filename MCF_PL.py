@@ -1,5 +1,4 @@
 import time
-import Graph_Tools as gt
 from ortools.linear_solver import pywraplp
 import numpy as np
 
@@ -29,10 +28,10 @@ def multicommodityflow_pl(graph, demands, cost=None):
     # On crée une variable binaire = 1(TRUE) si arc a est utilisé par demande k. SINON 0(FALSE)
     X = []
     for i in range(m):
-        aux = []
+        use = []
         for j in range(k):
-            aux.append(solver.IntVar(0, 1, 'x_' + str(arcs[i][0]) + "_" + str(arcs[i][1]) + "_" + str(j + 1)))
-        X.append(aux)
+            use.append(solver.IntVar(0, 1, 'x_' + str(arcs[i][0]) + "_" + str(arcs[i][1]) + "_" + str(j + 1)))
+        X.append(use)
 
     # On crée une variable binaire = 1(TRUE) s'il y a flot total i de l'arc a. SINON 0(FALSE)
     C = []
@@ -108,19 +107,3 @@ def multicommodityflow_pl(graph, demands, cost=None):
             if (C[a][i].solution_value() > 1e-6 and i > 0):  # Matrice avec plein de 0, on les ignore :
                 print("Arc %1s -> %1s || Flot total = %3s" % (str(arcs[a][0]), str(arcs[a][1]), str(i)))
     return round(objective.Value(), 3), round(temps, 3)
-
-
-if __name__ == '__main__':
-    # taille du graphe en nombre de sommets
-    n = 20  # nombre de sommets
-    m = 150  # nombre de liens
-    k = 10  # nombre de demandes
-    #### CREATION DU GRAPHE ####
-    graph = gt.generateGraph(n, m)
-    cost = gt.generateCosts(graph)
-    demands = gt.generateDemands(k, n)
-    print("Les demandes générées sont :", demands)
-    # Multi Commodity Flow
-    MCF = multicommodityflow_pl(graph, demands)
-    print("Le Problème du Multi Commodity Flow a été résolu via PL avec un coût total de ", MCF[0],
-          "et un temps d'exécution de ", MCF[1], "secondes")
