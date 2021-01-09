@@ -6,9 +6,9 @@ from ortools.linear_solver import pywraplp
 
 
 # taille du graphe en nombre de sommets
-n = 5  # nombre de sommets
-m = 8  # nombre de liens
-k = 3  # nombre de demandes
+n = 40  # nombre de sommets
+m = 284  # nombre de liens
+k = 39  # nombre de demandes
     #### CREATION DU GRAPHE ####
 graph = gt.generateGraph(n, m)
 cost = gt.generateCosts(graph)
